@@ -66,7 +66,7 @@ struct card parse(const char *card)
 		newCard.suit = SPADE;
 		break;
 	}
-	return parse_ref(card); 
+	return parse_ref(card); //Not sure what this is
 	/* TODO: TASK 2 (10 points): Implement this function. 
 	 * The function accepts a 2-character array called card (e.g., 'AH')
 	 * Create an instance of struct card and populate it with the correct enum values based on the input chars value and suit.
