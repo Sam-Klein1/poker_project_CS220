@@ -9,6 +9,63 @@
 /* Parse card from a 2 char input */
 struct card parse(const char *card)
 {
+	struct card newCard;
+	//Goes through the first character to determine what value the card should have
+	switch(card[0]){
+		case '2':
+		newCard.val = TWO;
+		break;
+		case '3':
+		newCard.val = THREE;
+		break;
+		case '4':
+		newCard.val = FOUR;
+		break;
+		case '5':
+		newCard.val = FIVE;
+		break;
+		case '6':
+		newCard.val = SIX;
+		break;
+		case '7':
+		newCard.val = SEVEN;
+		break;
+		case '8':
+		newCard.val = EIGHT;
+		break;
+		case '9':
+		newCard.val = NINE;
+		break;
+		case '10':
+		newCard.val = TEN;
+		break;
+		case 'J':
+		newCard.val = JACK;
+		break;
+		case 'Q':
+		newCard.val = QUEEN;
+		break;
+		case 'K':
+		newCard.val = KING;
+		break;
+		case 'A':
+		newCard.val = ACE;
+		break;
+	}
+	switch(card[1]){
+		case 'C':
+		newCard.suit = CLUB;
+		break;
+		case 'D':
+		newCard.suit = DIAMOND;
+		break;
+		case 'H':
+		newCard.suit = HEART;
+		break;
+		case 'S':
+		newCard.suit = SPADE;
+		break;
+	}
 	return parse_ref(card); 
 	/* TODO: TASK 2 (10 points): Implement this function. 
 	 * The function accepts a 2-character array called card (e.g., 'AH')
