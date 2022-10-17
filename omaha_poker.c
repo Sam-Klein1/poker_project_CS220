@@ -79,7 +79,19 @@ struct card parse(const char *card)
 /* Count the number of occurrences of each card 2 through Ace */
 void count_cards(struct hand *h)
 {
-	return count_cards(h); 
+  int cardValue = 0;
+  
+  for(int i = 0; i < 5; i++)
+    {
+      //Take value of card
+      cardValue = h->cards[i].val;
+
+      //Increment in card counter array(If not working, use if statments to find needed index in array)
+      h->card_count[(cardValue-1)]++;
+    }
+  //Recursive??
+	//return count_cards(h); 
+  
 	/* TODO: TASK 3 (6 points): Implement this function
 	 * The function accepts a pointer to a hand that has its cards already setup.
 	 * This function must iterate through the cards in the hand and count the number of times
@@ -88,7 +100,18 @@ void count_cards(struct hand *h)
 
 int is_flush(struct hand *h)
 {
-	return is_flush_ref(h); 
+  int ret = 1, firstSuit = h->cards[0].suit;
+  
+  for(int i = 1; i < 5; i ++)
+    {
+      if(h->cards[i].suit != firstSuit)
+      {
+        //Return 0 if any cards suit is diffrent
+        ret = 0;
+      }
+    }
+  return ret;
+	//return is_flush_ref(h); 
 
 	/* TODO: TASK 4 (6 points): Implement this function.
 	 * Return 1 if suits of all 5 cards in the hand are the same, else return 0 */
@@ -96,7 +119,19 @@ int is_flush(struct hand *h)
 
 int is_straight(struct hand *h)
 {
-	return is_straight_ref(h); 
+  int ret = 0;
+
+  for(int i = 0; i < 8; i++)
+    {
+      //May need to switch to 'AND' statments
+      if(h->card_count[i] == h->card_count[i+1] == h->card_count[i+2] == h->card_count[i+3] == h->card_count[i+4])
+      {
+        ret = 1;
+        break;
+      }
+    }
+  return ret;
+  //return is_straight_ref(h); 
 
 	/* TODO: TASK 5 (10 points): Implement this function. 
 	 * Return 1 if the 5 cards in the hand form a sequence, else return 0
@@ -108,7 +143,15 @@ int is_straight(struct hand *h)
 
 int is_straight_flush(struct hand *h)
 {
-	return is_straight_flush_ref(h); 
+  int ret = 0;
+
+  //If both functions return 1
+  if((is_straight(h) + is_flush(h)) == 2)
+  {
+    ret = 1;
+  }
+  return ret;
+	//return is_straight_flush_ref(h); 
 
 	/* TODO: TASK 6 (1 point): Implement this function.
 	 * Return 1 if the hand is a straight and a flush, else return 0. 
