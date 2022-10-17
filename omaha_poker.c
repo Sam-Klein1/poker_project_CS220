@@ -5,6 +5,8 @@
 #include "omaha_poker.h"
 
 /* TODO: TASK 1 (1 point) : Define 2 global instances of struct player--one for each player */
+struct player player1;
+struct player player2;
 
 /* Parse card from a 2 char input */
 struct card parse(const char *card)
@@ -203,11 +205,26 @@ void process_input_omaha(FILE *fp)
 			community_cards[i] = parse(&comm[i][0]);
 
 		/* TODO: TASK 11 (1 point): Initialize each player with p1_cards and community_cards by calling initialize_player_omaha */
+		initialize_player_omaha(&player1, &p1_cards, &community_cards);
+		initialize_player_omaha(&player2, &p2_cards, &community_cards);
 
 		/* TODO: TASK 12 (1 point): Evaluate the best hand for a player by calling eval_players_best_hand */
+		eval_players_best_hand(&player1);
+		eval_players_best_hand(&player2);
 
 		/* TODO: TASK 13 (1 point): Depending on who has the stronger hand, print the winner. 
 		 * If both have the same strong hand, print "No single winner" */
+		if (player1.best_hand->vector == player2.best_hand->vector){
+
+			printf("No single winner!");
+		}
+		else if (player1.best_hand->vector > player2.best_hand->vector){
+			printf("Player 1 Wins!");
+		}
+		else if (player1.best_hand->vector < player2.best_hand->vector){
+			printf("Player 2 Wins!");
+		}
+
 
 	}
 }
