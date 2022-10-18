@@ -38,7 +38,7 @@ struct card parse(const char *card)
 		case '9':
 		newCard.val = NINE;
 		break;
-		case '10':
+		case 'T':
 		newCard.val = TEN;
 		break;
 		case 'J':
@@ -68,7 +68,7 @@ struct card parse(const char *card)
 		newCard.suit = SPADE;
 		break;
 	}
-	return parse_ref(card); //Not sure what this is
+	//return parse_ref(card);
 	/* TODO: TASK 2 (10 points): Implement this function. 
 	 * The function accepts a 2-character array called card (e.g., 'AH')
 	 * Create an instance of struct card and populate it with the correct enum values based on the input chars value and suit.
@@ -89,7 +89,6 @@ void count_cards(struct hand *h)
       //Increment in card counter array(If not working, use if statments to find needed index in array)
       h->card_count[(cardValue-1)]++;
     }
-  //Recursive??
 	//return count_cards(h); 
   
 	/* TODO: TASK 3 (6 points): Implement this function
@@ -192,14 +191,21 @@ void eval_players_best_hand(struct player *p)
 	 * For each possible hand the player can make, evaluate the strength of the hand (by calling eval_strength).
 	 * Then, set the best_hand vector for the player to point to the strongest hand.
 	 */
+	int i;
+	for(i=0; i<5; i++){
+
+		eval_strength(p->hand[i]);
+	}
 }
 
 void copy_card(struct card *dst, struct card *src)
 {
-	return copy_card_ref(dst, src); 
+	//return copy_card_ref(dst, src); 
 	/* TODO: TASK 9 (3 points): Implement this function. 
 	 * copy the value and suit from the src card to the dst card. 
 	 */
+	 dst->suit = src->suit;
+	 dst->val = src->val;
 }
 
 
@@ -248,8 +254,8 @@ void process_input_omaha(FILE *fp)
 			community_cards[i] = parse(&comm[i][0]);
 
 		/* TODO: TASK 11 (1 point): Initialize each player with p1_cards and community_cards by calling initialize_player_omaha */
-		initialize_player_omaha(&player1, &p1_cards, &community_cards);
-		initialize_player_omaha(&player2, &p2_cards, &community_cards);
+		initialize_player_omaha(&player1, p1_cards, community_cards);
+		initialize_player_omaha(&player2, p2_cards, community_cards);
 
 		/* TODO: TASK 12 (1 point): Evaluate the best hand for a player by calling eval_players_best_hand */
 		eval_players_best_hand(&player1);
