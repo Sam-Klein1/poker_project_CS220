@@ -194,7 +194,7 @@ void eval_players_best_hand(struct player *p)
 	int i;
 	for(i=0; i<5; i++){
 
-		eval_strength(p->hand[i]);
+		eval_strength(p->hands[i]);
 	}
 }
 
