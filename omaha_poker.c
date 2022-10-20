@@ -89,7 +89,7 @@ void count_cards(struct hand *h)
       //Increment in card counter array(If not working, use if statments to find needed index in array)
       h->card_count[(cardValue-1)]++;
     }
-	return count_cards(h); 
+	//return count_cards(h); 
   
 	/* TODO: TASK 3 (6 points): Implement this function
 	 * The function accepts a pointer to a hand that has its cards already setup.
@@ -200,19 +200,19 @@ void eval_players_best_hand(struct player *p)
 	 * Then, set the best_hand vector for the player to point to the strongest hand.
 	 */
 	//Initilize best hand to compare
-	p->hands = p->hands[0];
+	p->best_hand = p->hands[0];
 
 	//For each possible hand (might be able to set condition to i < 60)
-	for(int i = 0; i < (p->hands.sizeof(p)/sizeof(p->hands[0])); i++)
+	for(int i = 0; i < (sizeof(p->best_hand)/sizeof(p->hands[0])); i++)
 	{
 		//Run through possible hands, eval_strength assigns vector
 		eval_strength(p->hands[i]);
 
 		//Assign best hand if value is higher than previous
-		if(p->hands[i].vector > p->hands.vector)
+		if(p->hands[i].vector > p->best_hand.vector)
 		{
 			//Assign best hand
-			p->hands = p->hands[i];
+			p->best_hand = p->hands[i];
 		}
 		
 	}
