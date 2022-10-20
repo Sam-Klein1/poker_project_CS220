@@ -178,9 +178,17 @@ Then, depending on the numeber of occurrences, the corresponding bit in the bit-
 In order to find the winner, a simple comparison of the bit vectors (i.e., unsigned long integers) will suffice! */
 void eval_strength(struct hand *h)
 {
-	return eval_strength_ref(h); 
+	//return eval_strength_ref(h); 
 	/* TODO: TASK 7 (25 points): Implement this function.
 	 * Given a hand, iterate through the cards and use the BIT macros to set the appropriate bit in the hand vector */
+	count_cards(h);
+	for(int i=0; i<13;i++){
+
+		if (h->count_cards[i] >= 1){
+
+			h->vector = BIT(h->count_cards[i]);
+		}
+	 }
 }
 
 
@@ -192,7 +200,7 @@ void eval_players_best_hand(struct player *p)
 	 * Then, set the best_hand vector for the player to point to the strongest hand.
 	 */
 	//Initilize best hand to compare
-	p->hand = p->hands[0];
+	p->hands = p->hands[0];
 
 	//For each possible hand (might be able to set condition to i < 60)
 	for(int i = 0; i < (p->hands.sizeof(p)/sizeof(p->hands[0])); i++)
@@ -201,10 +209,10 @@ void eval_players_best_hand(struct player *p)
 		eval_strength(p->hands[i]);
 
 		//Assign best hand if value is higher than previous
-		if(p->hands[i].vector > p->hand.vector)
+		if(p->hands[i].vector > p->hands.vector)
 		{
 			//Assign best hand
-			p->hand = p->hands[i];
+			p->hands = p->hands[i];
 		}
 		
 	}
