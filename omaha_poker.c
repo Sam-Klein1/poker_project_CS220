@@ -184,9 +184,9 @@ void eval_strength(struct hand *h)
 	count_cards(h);
 	for(int i=0; i<13;i++){
 
-		if (h->count_cards[i] >= 1){
+		if (h->card_count[i] >= 1){
 
-			h->vector = BIT(h->count_cards[i]);
+			h->vector = BIT(h->card_count[i]);
 		}
 	 }
 }
@@ -200,19 +200,19 @@ void eval_players_best_hand(struct player *p)
 	 * Then, set the best_hand vector for the player to point to the strongest hand.
 	 */
 	//Initilize best hand to compare
-	p->best_hand = p->hands[0];
+	p->best_hand = &(p->hands[0]);
 
 	//For each possible hand (might be able to set condition to i < 60)
 	for(int i = 0; i < (sizeof(p->best_hand)/sizeof(p->hands[0])); i++)
 	{
 		//Run through possible hands, eval_strength assigns vector
-		eval_strength(p->hands[i]);
+		eval_strength(&(p->hands[i]));
 
 		//Assign best hand if value is higher than previous
-		if(p->hands[i].vector > p->best_hand.vector)
+		if(p->hands[i].vector > p->best_hand->vector)
 		{
 			//Assign best hand
-			p->best_hand = p->hands[i];
+			p->best_hand = &(p->hands[i]);
 		}
 		
 	}
