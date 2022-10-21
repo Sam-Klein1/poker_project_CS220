@@ -232,129 +232,95 @@ void copy_card(struct card *dst, struct card *src)
 void initialize_player_omaha(struct player *p, struct card *player_cards, struct card *community_cards)
 {
 	//return initialize_player_omaha_ref(p, player_cards, community_cards);
-	//P1 P2 C1 C2 C3
-	p->hands[0].cards[0] = player_cards[0];
-	p->hands[0].cards[1] = player_cards[1];
-	p->hands[0].cards[2] = community_cards[0];
-	p->hands[0].cards[3] = community_cards[1];
-	p->hands[0].cards[4] = community_cards[2];
-	//P1 P2 C1 C2 C4
-	p->hands[1].cards[0] = player_cards[0];
-	p->hands[1].cards[1] = player_cards[1];
-	p->hands[1].cards[2] = community_cards[0];
-	p->hands[1].cards[3] = community_cards[1];
-	p->hands[1].cards[4] = community_cards[3];
-	//P1 P2 C1 C2 C5
-	p->hands[2].cards[0] = player_cards[0];
-	p->hands[2].cards[1] = player_cards[1];
-	p->hands[2].cards[2] = community_cards[0];
-	p->hands[2].cards[3] = community_cards[1];
-	p->hands[2].cards[4] = community_cards[4];
-	//P1 P2 C1 C3 C4
-	p->hands[3].cards[0] = player_cards[0];
-	p->hands[3].cards[1] = player_cards[1];
-	p->hands[3].cards[2] = community_cards[0];
-	p->hands[3].cards[3] = community_cards[2];
-	p->hands[3].cards[4] = community_cards[3];
-	//P1 P2 C1 C3 C5
-	p->hands[4].cards[0] = player_cards[0];
-	p->hands[4].cards[1] = player_cards[1];
-	p->hands[4].cards[2] = community_cards[0];
-	p->hands[4].cards[3] = community_cards[2];
-	p->hands[4].cards[4] = community_cards[4];
-	//P1 P2 C1 C4 C5
-	p->hands[5].cards[0] = player_cards[0];
-	p->hands[5].cards[1] = player_cards[1];
-	p->hands[5].cards[2] = community_cards[0];
-	p->hands[5].cards[3] = community_cards[3];
-	p->hands[5].cards[4] = community_cards[4];
-	//P1 P2 C2 C3 C4
-	p->hands[6].cards[0] = player_cards[0];
-	p->hands[6].cards[1] = player_cards[1];
-	p->hands[6].cards[2] = community_cards[1];
-	p->hands[6].cards[3] = community_cards[2];
-	p->hands[6].cards[4] = community_cards[3];
-	//P1 P2 C2 C3 C5
-	p->hands[7].cards[0] = player_cards[0];
-	p->hands[7].cards[1] = player_cards[1];
-	p->hands[7].cards[2] = community_cards[1];
-	p->hands[7].cards[3] = community_cards[2];
-	p->hands[7].cards[4] = community_cards[4];
-	//P1 P2 C2 C4 C5
-	p->hands[8].cards[0] = player_cards[0];
-	p->hands[8].cards[1] = player_cards[1];
-	p->hands[8].cards[2] = community_cards[1];
-	p->hands[8].cards[3] = community_cards[3];
-	p->hands[8].cards[4] = community_cards[4];
-	//P1 P2 C3 C4 C5
-	p->hands[8].cards[0] = player_cards[0];
-	p->hands[8].cards[1] = player_cards[1];
-	p->hands[8].cards[2] = community_cards[2];
-	p->hands[8].cards[3] = community_cards[3];
-	p->hands[8].cards[4] = community_cards[4];
-	//new
-	//P1 P3 C1 C2 C3
-	p->hands[9].cards[0] = player_cards[0];
-	p->hands[9].cards[1] = player_cards[2];
-	p->hands[9].cards[2] = community_cards[0];
-	p->hands[9].cards[3] = community_cards[1];
-	p->hands[9].cards[4] = community_cards[2];
-	//P1 P3 C1 C2 C4
-	p->hands[10].cards[0] = player_cards[0];
-	p->hands[10].cards[1] = player_cards[2];
-	p->hands[10].cards[2] = community_cards[0];
-	p->hands[10].cards[3] = community_cards[1];
-	p->hands[10].cards[4] = community_cards[3];
-	//P1 P3 C1 C2 C5
-	p->hands[11].cards[0] = player_cards[0];
-	p->hands[11].cards[1] = player_cards[2];
-	p->hands[11].cards[2] = community_cards[0];
-	p->hands[11].cards[3] = community_cards[1];
-	p->hands[11].cards[4] = community_cards[4];
-	//P1 P3 C1 C3 C4
-	p->hands[12].cards[0] = player_cards[0];
-	p->hands[12].cards[1] = player_cards[1];
-	p->hands[12].cards[2] = community_cards[0];
-	p->hands[12].cards[3] = community_cards[2];
-	p->hands[12].cards[4] = community_cards[3];
-	//P1 P3 C1 C3 C5
-	p->hands[13].cards[0] = player_cards[0];
-	p->hands[13].cards[1] = player_cards[2];
-	p->hands[13].cards[2] = community_cards[0];
-	p->hands[13].cards[3] = community_cards[2];
-	p->hands[13].cards[4] = community_cards[4];
-	//P1 P3 C1 C4 C5
-	p->hands[14].cards[0] = player_cards[0];
-	p->hands[14].cards[1] = player_cards[2];
-	p->hands[14].cards[2] = community_cards[0];
-	p->hands[14].cards[3] = community_cards[3];
-	p->hands[14].cards[4] = community_cards[4];
-	//P1 P3 C2 C3 C4
-	p->hands[15].cards[0] = player_cards[0];
-	p->hands[15].cards[1] = player_cards[2];
-	p->hands[15].cards[2] = community_cards[1];
-	p->hands[15].cards[3] = community_cards[2];
-	p->hands[15].cards[4] = community_cards[3];
-	//P1 P3 C2 C3 C5
-	p->hands[16].cards[0] = player_cards[0];
-	p->hands[16].cards[1] = player_cards[2];
-	p->hands[16].cards[2] = community_cards[1];
-	p->hands[16].cards[3] = community_cards[2];
-	p->hands[16].cards[4] = community_cards[4];
-	//P1 P3 C2 C4 C5
-	p->hands[17].cards[0] = player_cards[0];
-	p->hands[17].cards[1] = player_cards[2];
-	p->hands[17].cards[2] = community_cards[1];
-	p->hands[17].cards[3] = community_cards[3];
-	p->hands[17].cards[4] = community_cards[4];
-	//P1 P3 C3 C4 C5
-	p->hands[18].cards[0] = player_cards[0];
-	p->hands[18].cards[1] = player_cards[2];
-	p->hands[18].cards[2] = community_cards[2];
-	p->hands[18].cards[3] = community_cards[3];
-	p->hands[18].cards[4] = community_cards[4];
+	int pi1 = 0, pi2 = 1, i = 0;
 
+  for(int index = 0; index < 6; index++)
+      {
+		//Add cards from player and community to hand, relooping to increment player cards
+        p->hands[i].cards[0] = player_cards[pi1];
+	    p->hands[i].cards[1] = player_cards[pi2];
+      	p->hands[i].cards[2] = community_cards[0];
+      	p->hands[i].cards[3] = community_cards[1];
+      	p->hands[i].cards[4] = community_cards[2];
+        i++;
 
+        p->hands[i].cards[0] = player_cards[pi1];
+	    p->hands[i].cards[1] = player_cards[pi2];
+      	p->hands[i].cards[2] = community_cards[0];
+      	p->hands[i].cards[3] = community_cards[1];
+      	p->hands[i].cards[4] = community_cards[3];
+        i++;
+        
+        p->hands[i].cards[0] = player_cards[pi1];
+	    p->hands[i].cards[1] = player_cards[pi2];
+      	p->hands[i].cards[2] = community_cards[0];
+      	p->hands[i].cards[3] = community_cards[1];
+      	p->hands[i].cards[4] = community_cards[4];
+        i++;
+
+        p->hands[i].cards[0] = player_cards[pi1];
+	    p->hands[i].cards[1] = player_cards[pi2];
+      	p->hands[i].cards[2] = community_cards[0];
+      	p->hands[i].cards[3] = community_cards[2];
+      	p->hands[i].cards[4] = community_cards[3];
+        i++;
+
+        p->hands[i].cards[0] = player_cards[pi1];
+	    p->hands[i].cards[1] = player_cards[pi2];
+      	p->hands[i].cards[2] = community_cards[0];
+      	p->hands[i].cards[3] = community_cards[2];
+      	p->hands[i].cards[4] = community_cards[4];
+        i++;
+
+        p->hands[i].cards[0] = player_cards[pi1];
+	    p->hands[i].cards[1] = player_cards[pi2];
+      	p->hands[i].cards[2] = community_cards[0];
+      	p->hands[i].cards[3] = community_cards[3];
+      	p->hands[i].cards[4] = community_cards[4];
+        i++;
+
+        p->hands[i].cards[0] = player_cards[pi1];
+	    p->hands[i].cards[1] = player_cards[pi2];
+      	p->hands[i].cards[2] = community_cards[1];
+      	p->hands[i].cards[3] = community_cards[2];
+      	p->hands[i].cards[4] = community_cards[3];
+        i++;
+
+        p->hands[i].cards[0] = player_cards[pi1];
+	    p->hands[i].cards[1] = player_cards[pi2];
+      	p->hands[i].cards[2] = community_cards[1];
+      	p->hands[i].cards[3] = community_cards[2];
+      	p->hands[i].cards[4] = community_cards[4];
+        i++;
+
+        p->hands[i].cards[0] = player_cards[pi1];
+	    p->hands[i].cards[1] = player_cards[pi2];
+      	p->hands[i].cards[2] = community_cards[1];
+      	p->hands[i].cards[3] = community_cards[3];
+      	p->hands[i].cards[4] = community_cards[4];
+        i++;
+
+        p->hands[i].cards[0] = player_cards[pi1];
+	    p->hands[i].cards[1] = player_cards[pi2];
+      	p->hands[i].cards[2] = community_cards[2];
+      	p->hands[i].cards[3] = community_cards[3];
+      	p->hands[i].cards[4] = community_cards[4];
+        i++;
+        
+		//Increment through player cards
+        pi2++;
+		//If players second card goes out of bounds
+        if(pi2 == 4)
+        {
+			//Set player cards up
+			pi1++;
+          	pi2 = pi1 + 1;
+        }
+        if(pi == 4)
+        {
+          //Out of bounds, should be go out of outer for loop
+        }
+      }
 
 	/* TODO: TASK 10 (25 points): Given the player cards and the community cards, initialize the array of hands in the player structure. 
 	 * There are a total of MAX_COMBINATIONS number of possible hands that the player can make.
