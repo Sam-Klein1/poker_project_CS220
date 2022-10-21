@@ -239,70 +239,70 @@ void initialize_player_omaha(struct player *p, struct card *player_cards, struct
       {
 		//Add cards from player and community to hand, relooping to increment player cards
         p->hands[i].cards[0] = player_cards[pi1];
-	    p->hands[i].cards[1] = player_cards[pi2];
+		p->hands[i].cards[1] = player_cards[pi2];
       	p->hands[i].cards[2] = community_cards[0];
       	p->hands[i].cards[3] = community_cards[1];
       	p->hands[i].cards[4] = community_cards[2];
         i++;
 
         p->hands[i].cards[0] = player_cards[pi1];
-	    p->hands[i].cards[1] = player_cards[pi2];
+		p->hands[i].cards[1] = player_cards[pi2];
       	p->hands[i].cards[2] = community_cards[0];
       	p->hands[i].cards[3] = community_cards[1];
       	p->hands[i].cards[4] = community_cards[3];
         i++;
         
         p->hands[i].cards[0] = player_cards[pi1];
-	    p->hands[i].cards[1] = player_cards[pi2];
+		p->hands[i].cards[1] = player_cards[pi2];
       	p->hands[i].cards[2] = community_cards[0];
       	p->hands[i].cards[3] = community_cards[1];
       	p->hands[i].cards[4] = community_cards[4];
         i++;
 
         p->hands[i].cards[0] = player_cards[pi1];
-	    p->hands[i].cards[1] = player_cards[pi2];
+		p->hands[i].cards[1] = player_cards[pi2];
       	p->hands[i].cards[2] = community_cards[0];
       	p->hands[i].cards[3] = community_cards[2];
       	p->hands[i].cards[4] = community_cards[3];
         i++;
 
         p->hands[i].cards[0] = player_cards[pi1];
-	    p->hands[i].cards[1] = player_cards[pi2];
+		p->hands[i].cards[1] = player_cards[pi2];
       	p->hands[i].cards[2] = community_cards[0];
       	p->hands[i].cards[3] = community_cards[2];
       	p->hands[i].cards[4] = community_cards[4];
         i++;
 
         p->hands[i].cards[0] = player_cards[pi1];
-	    p->hands[i].cards[1] = player_cards[pi2];
+		p->hands[i].cards[1] = player_cards[pi2];
       	p->hands[i].cards[2] = community_cards[0];
       	p->hands[i].cards[3] = community_cards[3];
       	p->hands[i].cards[4] = community_cards[4];
         i++;
 
         p->hands[i].cards[0] = player_cards[pi1];
-	    p->hands[i].cards[1] = player_cards[pi2];
+		p->hands[i].cards[1] = player_cards[pi2];
       	p->hands[i].cards[2] = community_cards[1];
       	p->hands[i].cards[3] = community_cards[2];
       	p->hands[i].cards[4] = community_cards[3];
         i++;
 
         p->hands[i].cards[0] = player_cards[pi1];
-	    p->hands[i].cards[1] = player_cards[pi2];
+		p->hands[i].cards[1] = player_cards[pi2];
       	p->hands[i].cards[2] = community_cards[1];
       	p->hands[i].cards[3] = community_cards[2];
       	p->hands[i].cards[4] = community_cards[4];
         i++;
 
         p->hands[i].cards[0] = player_cards[pi1];
-	    p->hands[i].cards[1] = player_cards[pi2];
+		p->hands[i].cards[1] = player_cards[pi2];
       	p->hands[i].cards[2] = community_cards[1];
       	p->hands[i].cards[3] = community_cards[3];
       	p->hands[i].cards[4] = community_cards[4];
         i++;
 
         p->hands[i].cards[0] = player_cards[pi1];
-	    p->hands[i].cards[1] = player_cards[pi2];
+		p->hands[i].cards[1] = player_cards[pi2];
       	p->hands[i].cards[2] = community_cards[2];
       	p->hands[i].cards[3] = community_cards[3];
       	p->hands[i].cards[4] = community_cards[4];
@@ -315,9 +315,9 @@ void initialize_player_omaha(struct player *p, struct card *player_cards, struct
         {
 			//Set player cards up
 			pi1++;
-          	pi2 = pi1 + 1;
+			pi2 = pi1 + 1;
         }
-        if(pi == 4)
+        if(pi1 == 4)
         {
           //Out of bounds, should be go out of outer for loop
         }
