@@ -232,6 +232,7 @@ void copy_card(struct card *dst, struct card *src)
 void initialize_player_omaha(struct player *p, struct card *player_cards, struct card *community_cards)
 {
 	//return initialize_player_omaha_ref(p, player_cards, community_cards);
+	//Variables to track through loop
 	int pi1 = 0, pi2 = 1, i = 0;
 
   for(int index = 0; index < 6; index++)
