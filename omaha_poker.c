@@ -68,6 +68,7 @@ struct card parse(const char *card)
 		newCard.suit = SPADE;
 		break;
 	}
+	return newCard;
 	//return parse_ref(card);
 	/* TODO: TASK 2 (10 points): Implement this function. 
 	 * The function accepts a 2-character array called card (e.g., 'AH')
@@ -170,9 +171,12 @@ void print_hand(struct hand *h)
 
 /* This is the main function that converts the player's hand into weighted unsigned long number. 
 It is a 55bit vector as shown below (2 is the LSB and StraightFlush is the MSB) */
-/* 2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K, A, 22, 33, 44, 55, 66, 77, 88, 99, TT, JJ, QQ, KK, AA,
-222, 333, 444, 555, 666, 777, 888, 999, TTT, JJJ, QQQ, KKK, AAA, Straight, Flush, FullHouse, 2222, 3333, 
-4444, 5555, 6666, 7777, 8888, 9999, TTTT, JJJJ, QQQQ, KKKK, AAAA, StraightFlush */
+/* 2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K, A, BIT(0-12)
+   22, 33, 44, 55, 66, 77, 88, 99, TT, JJ, QQ, KK, AA, BIT(13-25)
+   222, 333, 444, 555, 666, 777, 888, 999, TTT, JJJ, QQQ, KKK, AAA, (26-38)
+   Straight, Flush, FullHouse, (39-41)
+   2222, 3333, 4444, 5555, 6666, 7777, 8888, 9999, TTTT, JJJJ, QQQQ, KKKK, AAAA, 
+   StraightFlush (42-55) */
 /* The number of occurrences of each number in the hand is first calculated in count_cards. 
 Then, depending on the numeber of occurrences, the corresponding bit in the bit-vector is set. 
 In order to find the winner, a simple comparison of the bit vectors (i.e., unsigned long integers) will suffice! */
@@ -180,16 +184,49 @@ void eval_strength(struct hand *h)
 {
 	//return eval_strength_ref(h); 
 	/* TODO: TASK 7 (25 points): Implement this function.
-	 * Given a hand, iterate through the cards and use the BIT macros to set the appropriate bit in the hand vector */
+	 * Given a hand, iterate through the cards and use the BIT macros to set the appropriate bit in the hand vector 
+	 */
+	
+
+	//edge cases
+	if(is_straight(h)){
+		h->vector = BIT(41);
+	}
+	if(is_flush(h)){
+		h->vector = BIT(42);
+	}
+	if(is_straight_flush(h)){
+		h->vector = BIT(55);
+	}
+
+	//setup card_count in hand
 	count_cards(h);
-	for(int i=0; i<13;i++){
+	//iterate thru cards
+	for(int i=0; i<5;i++){
 
-		if (h->card_count[i] >= 1){
+		//card's corresponding index in card_count. 
+		int card_count_index = h->cards[i].val - 2;
+		
+		if(h->card_count[card_count_index] == 1){
 
-			h->vector = BIT(h->card_count[i]);
+			h->vector = BIT(card_count_index); 
 		}
-	 }
+		else if(h->card_count[card_count_index] == 2){
+
+			h->vector = BIT(card_count_index + 13); 
+		}
+		else if(h->card_count[card_count_index] == 3){
+
+			h->vector = BIT(card_count_index + 26); 
+		}
+		else if(h->card_count[card_count_index] == 4){
+
+			h->vector = BIT(card_count_index + 42); 
+		}
+	}
+	
 }
+
 
 
 void eval_players_best_hand(struct player *p)
@@ -199,11 +236,12 @@ void eval_players_best_hand(struct player *p)
 	 * For each possible hand the player can make, evaluate the strength of the hand (by calling eval_strength).
 	 * Then, set the best_hand vector for the player to point to the strongest hand.
 	 */
+	
 	//Initilize best hand to compare
 	p->best_hand = &(p->hands[0]);
 
 	//For each possible hand (might be able to set condition to i < 60)
-	for(int i = 0; i < (sizeof(p->best_hand)/sizeof(p->hands[0])); i++)
+	for(int i = 0; i < 60; i++)
 	{
 		//Run through possible hands, eval_strength assigns vector
 		eval_strength(&(p->hands[i]));
@@ -215,6 +253,7 @@ void eval_players_best_hand(struct player *p)
 			p->best_hand = &(p->hands[i]);
 		}
 		
+		
 	}
 }
 
@@ -224,8 +263,10 @@ void copy_card(struct card *dst, struct card *src)
 	/* TODO: TASK 9 (3 points): Implement this function. 
 	 * copy the value and suit from the src card to the dst card. 
 	 */
+	 
 	 dst->suit = src->suit;
 	 dst->val = src->val;
+
 }
 
 
@@ -233,6 +274,7 @@ void initialize_player_omaha(struct player *p, struct card *player_cards, struct
 {
 	//return initialize_player_omaha_ref(p, player_cards, community_cards);
 	//Variables to track through loop
+
 	int pi1 = 0, pi2 = 1, i = 0;
 
   for(int index = 0; index < 6; index++)
@@ -323,6 +365,7 @@ void initialize_player_omaha(struct player *p, struct card *player_cards, struct
         }
       }
 
+
 	/* TODO: TASK 10 (25 points): Given the player cards and the community cards, initialize the array of hands in the player structure. 
 	 * There are a total of MAX_COMBINATIONS number of possible hands that the player can make.
 	 * Initialize each of the MAX_COMBINATIONS number of hands with different 5 card combinations. 
@@ -375,13 +418,13 @@ void process_input_omaha(FILE *fp)
 		 * If both have the same strong hand, print "No single winner" */
 		if (player1.best_hand->vector == player2.best_hand->vector){
 
-			printf("No single winner!");
+			printf("No single winner!\n");
 		}
 		else if (player1.best_hand->vector > player2.best_hand->vector){
-			printf("Player 1 Wins!");
+			printf("Player 1 Wins!\n");
 		}
 		else if (player1.best_hand->vector < player2.best_hand->vector){
-			printf("Player 2 Wins!");
+			printf("Player 2 Wins!\n");
 		}
 
 
