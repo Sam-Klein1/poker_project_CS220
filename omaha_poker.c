@@ -186,7 +186,6 @@ void eval_strength(struct hand *h)
 	/* TODO: TASK 7 (25 points): Implement this function.
 	 * Given a hand, iterate through the cards and use the BIT macros to set the appropriate bit in the hand vector 
 	 */
-	
 
 	//edge cases
 	if(is_straight(h)){
@@ -201,6 +200,10 @@ void eval_strength(struct hand *h)
 
 	//setup card_count in hand
 	count_cards(h);
+
+	///Thoreticlay add for 
+	int twoFound = 0, threeFound = 0;
+	
 	//iterate thru cards
 	for(int i=0; i<5;i++){
 
@@ -214,15 +217,26 @@ void eval_strength(struct hand *h)
 		else if(h->card_count[card_count_index] == 2){
 
 			h->vector = BIT(card_count_index + 13); 
+			//Track incase of a full house
+			twoFound = 1;
 		}
 		else if(h->card_count[card_count_index] == 3){
 
-			h->vector = BIT(card_count_index + 26); 
+			h->vector = BIT(card_count_index + 26);
+			//Track incase of a full house
+			threeFound = 1;
 		}
 		else if(h->card_count[card_count_index] == 4){
 
 			h->vector = BIT(card_count_index + 42); 
 		}
+	}
+	
+	//Check for full house after processing card count
+	if(twoFound + threeFound == 2)
+	{
+		//Set bit
+		h->vector = BIT(41);
 	}
 	
 }
