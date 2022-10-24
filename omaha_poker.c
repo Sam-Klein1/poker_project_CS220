@@ -131,7 +131,7 @@ int is_straight(struct hand *h)
   for(int i = 0; i < 8; i++)
     {
       //May need to switch to 'AND' statments
-      if(h->card_count[i] == h->card_count[i+1] == h->card_count[i+2] == h->card_count[i+3] == h->card_count[i+4])
+      if(h->card_count[i] && h->card_count[i+1] && h->card_count[i+2] && h->card_count[i+3] && h->card_count[i+4])
       {
         ret = 1;
         break;
@@ -198,13 +198,16 @@ void eval_strength(struct hand *h)
 	h->vector = h->vector & 0;
 	int twoFound = 0, threeFound = 0;
 
+	//setup card_count in hand
+	count_cards(h);
+
 	//edge cases
 	if(is_straight(h)){
-		mask = BIT(41);
+		mask = BIT(39);
 		h->vector = (h->vector | mask);
 	}
 	if(is_flush(h)){
-		mask = BIT(42);
+		mask = BIT(40);
 		h->vector = (h->vector | mask);
 	}
 	if(is_straight_flush(h)){
@@ -212,10 +215,6 @@ void eval_strength(struct hand *h)
 		h->vector = (h->vector | mask);
 	}
 
-	//setup card_count in hand
-	count_cards(h);
-
-	
 	//iterate thru cards
 	for(int i=0; i<5;i++){
 
