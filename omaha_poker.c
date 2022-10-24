@@ -80,15 +80,22 @@ struct card parse(const char *card)
 /* Count the number of occurrences of each card 2 through Ace */
 void count_cards(struct hand *h)
 {
+	//Set array to 0
+	for(int j = 0; j < 13; j ++)
+	{
+		h->card_count[j] = 0;
+	}
+
   int cardValue = 0;
   
   for(int i = 0; i < 5; i++)
-    {
-      //Take value of card
+    {		
+		//Take value of card
       cardValue = h->cards[i].val;
 
+
       //Increment in card counter array(If not working, use if statments to find needed index in array)
-      h->card_count[(cardValue-1)]++;
+      h->card_count[(cardValue-2)]++;
     }
 	//return count_cards(h); 
   
@@ -187,22 +194,27 @@ void eval_strength(struct hand *h)
 	 * Given a hand, iterate through the cards and use the BIT macros to set the appropriate bit in the hand vector 
 	 */
 
+	unsigned long mask = 0;
+	h->vector = h->vector & 0;
+	int twoFound = 0, threeFound = 0;
+
 	//edge cases
 	if(is_straight(h)){
-		h->vector = BIT(41);
+		mask = BIT(41);
+		h->vector = (h->vector | mask);
 	}
 	if(is_flush(h)){
-		h->vector = BIT(42);
+		mask = BIT(42);
+		h->vector = (h->vector | mask);
 	}
 	if(is_straight_flush(h)){
-		h->vector = BIT(55);
+		mask = BIT(55);
+		h->vector = (h->vector | mask);
 	}
 
 	//setup card_count in hand
 	count_cards(h);
 
-	///Thoreticlay add for 
-	int twoFound = 0, threeFound = 0;
 	
 	//iterate thru cards
 	for(int i=0; i<5;i++){
@@ -212,23 +224,27 @@ void eval_strength(struct hand *h)
 		
 		if(h->card_count[card_count_index] == 1){
 
-			h->vector = BIT(card_count_index); 
+			mask = BIT(card_count_index); 
+			h->vector = (h->vector | mask);
 		}
 		else if(h->card_count[card_count_index] == 2){
 
-			h->vector = BIT(card_count_index + 13); 
+			mask = BIT(card_count_index + 13); 
+			h->vector = (h->vector | mask);
 			//Track incase of a full house
 			twoFound = 1;
 		}
 		else if(h->card_count[card_count_index] == 3){
 
-			h->vector = BIT(card_count_index + 26);
+			mask = BIT(card_count_index + 26);
+			h->vector = (h->vector | mask);
 			//Track incase of a full house
 			threeFound = 1;
 		}
 		else if(h->card_count[card_count_index] == 4){
 
-			h->vector = BIT(card_count_index + 42); 
+			mask = BIT(card_count_index + 42); 
+			h->vector = (h->vector | mask);
 		}
 	}
 	
@@ -236,7 +252,8 @@ void eval_strength(struct hand *h)
 	if(twoFound + threeFound == 2)
 	{
 		//Set bit
-		h->vector = BIT(41);
+		mask = BIT(41);
+		h->vector = (h->vector | mask);
 	}
 	
 }
